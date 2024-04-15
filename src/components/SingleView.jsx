@@ -12,6 +12,9 @@ function SingleView(props) {
       )}
       <p>Created at: {item && item.created_at}</p>
       <p>{item && item.description}</p>
+      <p>Created at: {new Date(item.created_at).toLocaleString('fi-FI')}</p>
+      <p>Filesize: {item.filesize}</p>
+      <p>Type: {item.media_type}</p>
       <button onClick={() => setIsDialogOpen(false)}>Close</button>
     </dialog>
   );
