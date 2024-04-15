@@ -5,16 +5,14 @@ function SingleView(props) {
   return (
     <dialog open={isDialogOpen}>
       <h2>{item && item.title}</h2>
-      {item && item.media_type.startsWith('image') ? (
+      {item && item.media_type === 'image/jpeg' ? (
         <img src={item.filename} alt={item.title} />
       ) : (
-        <video controls src={item.filename} title={item.title}></video>
+        <video controls>
+          <source src={item && item.filename} type={item && item.media_type} />
+        </video>
       )}
-      <p>Created at: {item && item.created_at}</p>
       <p>{item && item.description}</p>
-      <p>Created at: {new Date(item.created_at).toLocaleString('fi-FI')}</p>
-      <p>Filesize: {item.filesize}</p>
-      <p>Type: {item.media_type}</p>
       <button onClick={() => setIsDialogOpen(false)}>Close</button>
     </dialog>
   );
