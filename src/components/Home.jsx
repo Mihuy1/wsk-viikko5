@@ -1,4 +1,4 @@
-import MediaRow from './mediaRow';
+import MediaRow from './MediaRow';
 import SingleView from './SingleView';
 import {useState} from 'react';
 
