@@ -13,6 +13,9 @@ function SingleView(props) {
         </video>
       )}
       <p>{item && item.description}</p>
+      <p>Created at: {item && item.created_at} </p>
+      <p>File size: {item && item.filesize} </p>
+      <p>Type: {item && item.media_type} </p>
       <button onClick={() => setIsDialogOpen(false)}>Close</button>
     </dialog>
   );
