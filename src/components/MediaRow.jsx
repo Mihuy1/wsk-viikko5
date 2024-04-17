@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import Single from '../views/Single';
 
 const MediaRow = (props) => {
   const {item, setSelectedItem, setIsDialogOpen} = props;
@@ -19,7 +21,9 @@ const MediaRow = (props) => {
       <td>{item.filesize}</td>
       <td>{item.media_type}</td>
       <td>
-        <button onClick={handleClick}>View</button>
+        <Link to="/single" state={{item}}>
+          Show
+        </Link>{' '}
       </td>
     </tr>
   );
