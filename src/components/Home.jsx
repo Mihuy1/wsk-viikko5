@@ -1,4 +1,4 @@
-import MediaRow from './mediaRow';
+import MediaRow from './MediaRow';
 
 const mediaArray = [
   {
