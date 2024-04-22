@@ -1,8 +1,10 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useReducer, useState} from 'react';
 import {fetchData} from '../lib/fetchData';
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
+  const {getUserById} = useUser();
+
   const getMedia = async () => {
     const mediaResult = await fetchData(
       import.meta.env.VITE_MEDIA_API + '/media',
@@ -10,10 +12,8 @@ const useMedia = () => {
 
     const mediaWithUser = await Promise.all(
       mediaResult.map(async (mediaItem) => {
-        const userResult = await fetchData(
-          import.meta.env.VITE_AUTH_API + '/users/' + mediaItem.user_id,
-        );
-        return {...mediaItem, username: userResult.username};
+        const username = await getUserById(mediaItem.user_id);
+        return {...mediaItem, username};
       }),
     );
 
@@ -21,6 +21,7 @@ const useMedia = () => {
 
     setMediaArray(mediaWithUser);
   };
+
   useEffect(() => {
     getMedia();
   }, []);
@@ -29,7 +30,14 @@ const useMedia = () => {
 };
 
 const useUser = () => {
-  const getUserById = async () => {};
+  const getUserById = async (userId) => {
+    const userResult = await fetchData(
+      import.meta.env.VITE_AUTH_API + '/users/' + userId,
+    );
+    return userResult.username;
+  };
+
+  return {getUserById};
 };
 
 export {useMedia, useUser};
