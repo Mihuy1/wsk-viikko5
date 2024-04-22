@@ -5,11 +5,6 @@ import Single from '../views/Single';
 const MediaRow = (props) => {
   const {item, setSelectedItem, setIsDialogOpen} = props;
 
-  const handleClick = () => {
-    setSelectedItem(item);
-    setIsDialogOpen(true);
-  };
-
   return (
     <tr key={item.media_id}>
       <td>
