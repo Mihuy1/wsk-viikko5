@@ -1,1 +1,1 @@
-Open [link](https://users.metropolia.fi/~patrikhy/wsk-context/) to view it in the browser.
+Open [link](https://users.metropolia.fi/~patrikhy/wsk-upload/) to view it in the browser.
