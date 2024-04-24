@@ -1,10 +1,10 @@
 import {useNavigate} from 'react-router-dom';
-import {register, useAuthentication} from '../hooks/ApiHooks';
 import useForm from '../hooks/FormHooks';
+import {useAuthentication} from '../hooks/ApiHooks';
 
 // RegisterForm.jsx
 const RegisterForm = () => {
-  const {Register} = useAuthentication();
+  const {register} = useAuthentication();
   const navigate = useNavigate();
 
   const initValues = {

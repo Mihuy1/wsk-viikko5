@@ -55,18 +55,6 @@ const useUser = () => {
   return {getUserById, getUserByToken};
 };
 
-const register = async (input) => {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(input),
-  };
-
-  return await fetchData(import.meta.env.VITE_AUTH_API + '/users', options);
-};
-
 const useAuthentication = () => {
   const login = async (inputs) => {
     const options = {
@@ -84,7 +72,19 @@ const useAuthentication = () => {
     return loginResult;
   };
 
-  return {login};
+  const register = async (input) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(input),
+    };
+
+    return await fetchData(import.meta.env.VITE_AUTH_API + '/users', options);
+  };
+
+  return {login, register};
 };
 
-export {useMedia, useUser, useAuthentication, register};
+export {useMedia, useUser, useAuthentication};
