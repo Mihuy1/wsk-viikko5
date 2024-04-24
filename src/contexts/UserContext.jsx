@@ -1,6 +1,7 @@
 import {createContext, useState} from 'react';
 import {useAuthentication, useUser} from '../hooks/ApiHooks';
 import {useNavigate} from 'react-router-dom';
+import PropType from 'prop-types';
 
 const UserContext = createContext(null);
 
@@ -59,6 +60,10 @@ const UserProvider = ({children}) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+UserProvider.propTypes = {
+  children: PropType.node,
 };
 
 export {UserProvider, UserContext};

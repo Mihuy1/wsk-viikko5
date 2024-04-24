@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 import {useUser} from '../hooks/ApiHooks';
 import {useEffect, useState} from 'react';
 
-const Profile = (props) => {
+const Profile = () => {
   const [user, setUser] = useState(null);
   const {getUserByToken} = useUser();
 
@@ -34,7 +32,5 @@ const Profile = (props) => {
     </>
   );
 };
-
-Profile.propTypes = {};
 
 export default Profile;
