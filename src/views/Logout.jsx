@@ -1,25 +1,16 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useUserContext} from '../hooks/ContextHooks';
 
 const Logout = () => {
-  const navigate = useNavigate();
-
-  const token = localStorage.getItem('token');
-
-  const handleClick = () => {
-    if (token) {
-      localStorage.removeItem('token');
-      navigate('/');
-    }
-  };
-
+  const {handleLogout, token} = useUserContext();
   return (
     <>
       <h1>Logout</h1>
       {token ? (
         <>
           <p>Logged in</p>
-          <button onClick={handleClick}>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
         <p>Not logged in</p>

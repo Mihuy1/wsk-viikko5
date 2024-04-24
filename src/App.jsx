@@ -7,6 +7,7 @@ import Single from './views/Single';
 import Login from './views/Login';
 import Logout from './views/Logout';
 import {UserProvider} from './contexts/UserContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
   return (
@@ -18,8 +19,22 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="upload" element={<Upload />} />
+              <Route
+                path="profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="upload"
+                element={
+                  <ProtectedRoute>
+                    <Upload />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="single" element={<Single />} />
               <Route path="login" element={<Login />} />
               <Route path="logout" element={<Logout />} />

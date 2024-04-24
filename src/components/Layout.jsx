@@ -1,10 +1,14 @@
 import {Link, Outlet} from 'react-router-dom';
-import Profile from '../views/Profile';
-import Upload from '../views/Upload';
-import Home from '../views/Home';
-import PropTypes from 'prop-types';
+import {useUserContext} from '../hooks/ContextHooks';
+import {useEffect} from 'react';
 
-const Layout = (props) => {
+const Layout = () => {
+  const {user, handleAutoLogin, handleLogout} = useUserContext();
+
+  useEffect(() => {
+    handleAutoLogin();
+  }, []);
+
   return (
     <div>
       <nav>
@@ -12,18 +16,26 @@ const Layout = (props) => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/upload">Upload</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
-          </li>
+          {user && (
+            <>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link to="/upload">Upload</Link>
+              </li>
+              <li>
+                <a href="#" onClick={handleLogout}>
+                  Logout
+                </a>
+              </li>
+            </>
+          )}
+          {!user && (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
         </ul>
       </nav>
       <main>
@@ -32,7 +44,5 @@ const Layout = (props) => {
     </div>
   );
 };
-
-Layout.propTypes = {};
 
 export default Layout;

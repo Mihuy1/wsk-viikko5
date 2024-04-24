@@ -7,6 +7,8 @@ const UserContext = createContext(null);
 const UserProvider = ({children}) => {
   const [user, setUser] = useState(null);
 
+  const token = localStorage.getItem('token');
+
   const {login} = useAuthentication();
   const {getUserByToken} = useUser();
   const navigate = useNavigate();
@@ -39,11 +41,11 @@ const UserProvider = ({children}) => {
 
   const handleAutoLogin = async () => {
     try {
-      const token = localStorage.getItem('token');
       if (token) {
         const userData = await getUserByToken(token);
         setUser(userData.user);
-        navigate('/');
+        const origin = location.state.from.pathname || '/';
+        navigate(origin);
       }
     } catch (e) {
       console.log(e.message);
@@ -52,7 +54,7 @@ const UserProvider = ({children}) => {
 
   return (
     <UserContext.Provider
-      value={{user, handleLogin, handleLogout, handleAutoLogin}}
+      value={{user, handleLogin, handleLogout, handleAutoLogin, token}}
     >
       {children}
     </UserContext.Provider>
