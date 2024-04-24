@@ -1,11 +1,11 @@
 import {useNavigate} from 'react-router-dom';
 import {useAuthentication} from '../hooks/ApiHooks';
 import useForm from '../hooks/FormHooks';
+import {useUserContext} from '../hooks/ContextHooks';
 
 // LoginForm.jsx
 const LoginForm = () => {
-  const {login} = useAuthentication();
-  const navigate = useNavigate();
+  const {handleLogin} = useUserContext();
 
   const initValues = {
     username: '',
@@ -15,10 +15,7 @@ const LoginForm = () => {
   const doLogin = async () => {
     console.log('doLogin', inputs);
     try {
-      const userData = await login(inputs);
-      console.log('doLogin', userData);
-      localStorage.setItem('token', userData.token);
-      navigate('/');
+      handleLogin(inputs);
     } catch (e) {
       alert(e.message);
     }
