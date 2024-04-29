@@ -7,7 +7,7 @@ const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const {mediaArray} = useMedia();
+  const {mediaArray, deleteMedia} = useMedia();
 
   console.log(mediaArray);
 
@@ -32,6 +32,7 @@ const Home = () => {
             <MediaRow
               key={item.media_id}
               item={item}
+              deleteMedia={deleteMedia}
               setSelectedItem={setSelectedItem}
               setIsDialogOpen={setIsDialogOpen}
             />

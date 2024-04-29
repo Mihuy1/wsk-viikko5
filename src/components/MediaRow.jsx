@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import Single from '../views/Single';
+import {useContext} from 'react';
+import {useUserContext} from '../hooks/ContextHooks';
 
 const MediaRow = (props) => {
-  const {item, setSelectedItem, setIsDialogOpen} = props;
+  const {item, deleteMedia} = props;
+
+  const {user} = useUserContext();
+
+  const handleDelete = (id) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      deleteMedia(id);
+    }
+  };
 
   return (
     <tr key={item.media_id}>
@@ -20,6 +30,16 @@ const MediaRow = (props) => {
         <Link to="/single" state={{item}}>
           Show
         </Link>{' '}
+        {user && (
+          <button
+            className="deleteButton"
+            onClick={() => {
+              handleDelete(item.media_id);
+            }}
+          >
+            Delete
+          </button>
+        )}
       </td>
     </tr>
   );
@@ -27,8 +47,7 @@ const MediaRow = (props) => {
 
 MediaRow.propTypes = {
   item: PropTypes.object.isRequired,
-  setSelectedItem: PropTypes.func.isRequired,
-  setIsDialogOpen: PropTypes.func.isRequired,
+  deleteMedia: PropTypes.func.isRequired,
 };
 
 export default MediaRow;

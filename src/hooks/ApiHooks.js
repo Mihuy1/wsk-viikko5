@@ -53,11 +53,25 @@ const useMedia = () => {
     }
   };
 
+  const deleteMedia = async (id) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    };
+    const deleteResult = await fetchData(
+      import.meta.env.VITE_MEDIA_API + '/media/' + id,
+      options,
+    );
+    return deleteResult;
+  };
+
   useEffect(() => {
     getMedia();
   }, []);
 
-  return {mediaArray, postMedia};
+  return {mediaArray, postMedia, deleteMedia};
 };
 
 const useUser = () => {

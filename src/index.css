@@ -134,11 +134,15 @@ form textarea {
 }
 
 button {
-  margin: 10px 0;
+  margin: 20px;
   padding: 10px;
   border-radius: 5px;
   background-color: #363636;
   color: white;
   border: none;
   cursor: pointer;
+}
+
+.deleteButton {
+  background-color: #ff0000;
 }
