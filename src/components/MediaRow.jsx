@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import Single from '../views/Single';
-import {useContext} from 'react';
 import {useUserContext} from '../hooks/ContextHooks';
 
 const MediaRow = (props) => {
@@ -30,15 +28,18 @@ const MediaRow = (props) => {
         <Link to="/single" state={{item}}>
           Show
         </Link>{' '}
-        {user && (
-          <button
-            className="deleteButton"
-            onClick={() => {
-              handleDelete(item.media_id);
-            }}
-          >
-            Delete
-          </button>
+        {user && user.username === item.username && (
+          <>
+            <button
+              className="deleteButton"
+              onClick={() => {
+                handleDelete(item.media_id);
+              }}
+            >
+              Delete
+            </button>
+            <Link to={`/modify/${item.media_id}`}>Modify</Link>
+          </>
         )}
       </td>
     </tr>

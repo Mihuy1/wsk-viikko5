@@ -8,6 +8,7 @@ import Login from './views/Login';
 import Logout from './views/Logout';
 import {UserProvider} from './contexts/UserContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import Modify from './views/Modify';
 
 const App = () => {
   return (
@@ -38,6 +39,15 @@ const App = () => {
               <Route path="single" element={<Single />} />
               <Route path="login" element={<Login />} />
               <Route path="logout" element={<Logout />} />
+
+              <Route
+                path="/modify/:id"
+                element={
+                  <ProtectedRoute>
+                    <Modify />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
           </Routes>
         </UserProvider>

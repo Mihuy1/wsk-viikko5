@@ -1,32 +1,48 @@
-import useForm from '../hooks/FormHooks';
-import {useNavigate} from 'react-router-dom';
 import {useMedia} from '../hooks/ApiHooks';
+import useForm from '../hooks/FormHooks';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useEffect} from 'react';
 
-// Modify.jsx
-const Modify = ({item}) => {
+const Modify = () => {
   const navigate = useNavigate();
-  const {putMedia} = useMedia();
+  const params = useParams();
+  const id = Number(params.id);
+  const {getMediaById, putMedia} = useMedia();
+
+  const getItem = async () => {
+    const itemResult = await getMediaById(id);
+    console.log('itemResult', itemResult);
+    setInputs({title: itemResult.title, description: itemResult.description});
+  };
+
+  useEffect(() => {
+    getItem();
+  }, []);
 
   const initValues = {
-    title: item.title,
-    description: item.description,
+    title: '',
+    description: '',
   };
+
   const doModify = async () => {
     try {
       const token = localStorage.getItem('token');
-
-      await putMedia(item.media_id, inputs, token);
-
+      const mediaResponse = await putMedia(id, inputs, token);
+      if (mediaResponse) {
+        console.log(mediaResponse);
+      }
       navigate('/');
     } catch (e) {
-      alert(e.message);
+      console.log(e.message);
     }
   };
 
-  const {handleSubmit, handleInputChange, inputs} = useForm(
+  const {inputs, setInputs, handleInputChange, handleSubmit} = useForm(
     doModify,
     initValues,
   );
+
+  console.log(inputs, initValues);
 
   return (
     <>
@@ -39,6 +55,7 @@ const Modify = ({item}) => {
             type="text"
             id="title"
             onChange={handleInputChange}
+            value={inputs.title}
           />
         </div>
         <div>
@@ -48,6 +65,7 @@ const Modify = ({item}) => {
             rows={5}
             id="description"
             onChange={handleInputChange}
+            defaultValue={inputs.description}
           ></textarea>
         </div>
         <button type="submit">Modify</button>
