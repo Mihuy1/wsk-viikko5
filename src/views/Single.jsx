@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {useLocation} from 'react-router-dom';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
+import Likes from '../components/Likes';
 
-const Single = (props) => {
+const Single = () => {
   const {state} = useLocation();
   const item = state.item;
   const navigate = useNavigate();
@@ -21,11 +19,10 @@ const Single = (props) => {
       <p>Created at: {item && item.created_at} </p>
       <p>File size: {item && item.filesize} </p>
       <p>Type: {item && item.media_type} </p>
+      <Likes id={item && item.media_id} />
       <button onClick={() => navigate(-1)}>Go Back</button>
     </div>
   );
 };
-
-Single.propTypes = {};
 
 export default Single;

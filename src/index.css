@@ -146,3 +146,10 @@ button {
 .deleteButton {
   background-color: #ff0000;
 }
+
+.favorite-delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccc;
+}

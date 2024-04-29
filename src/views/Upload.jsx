@@ -81,15 +81,25 @@ const Upload = () => {
             onChange={handleFileChange}
           />
         </div>
-        <img
-          src={
-            file
-              ? URL.createObjectURL(file)
-              : 'https://via.placeholder.com/200?text=Choose+image'
-          }
-          alt="preview"
-          width="200"
-        />
+        <>
+          {file && file.type.includes('video') ? (
+            <video
+              className="w-1/3"
+              src={URL.createObjectURL(file)}
+              controls
+            ></video>
+          ) : (
+            <img
+              src={
+                file
+                  ? URL.createObjectURL(file)
+                  : 'https://via.placeholder.com/200?text=Choose+image'
+              }
+              alt="preview"
+              className="w-1/3"
+            />
+          )}
+        </>
         <button
           type="submit"
           disabled={file && inputs.title.length > 3 ? false : true}

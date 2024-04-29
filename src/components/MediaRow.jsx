@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {useUserContext} from '../hooks/ContextHooks';
+import Likes from './Likes';
 
 const MediaRow = (props) => {
   const {item, deleteMedia} = props;
@@ -41,6 +42,7 @@ const MediaRow = (props) => {
             <Link to={`/modify/${item.media_id}`}>Modify</Link>
           </>
         )}
+        <Likes id={item.media_id} />
       </td>
     </tr>
   );
